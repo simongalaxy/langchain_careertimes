@@ -16,6 +16,8 @@ def show_list_items(items: list) -> None:
     return
 
 
+
+
 # main program.
 def main():
 
@@ -32,15 +34,21 @@ def main():
         job_dicts = get_job_info(jobs=results["data"]["jobs"])
         print(f"Total No. of job scraped: {len(job_dicts)}\n")
 
-        # job_ad_urls = [dict["jobUrl"] for dict in job_dicts]
-        # print(job_ad_urls)
+        upper_limit = 20
 
         # render the job advertisement page and then parse the information from job ad page.
-        htmls = [render_page(dict["jobUrl"]) for dict in job_dicts]
+        for i, dict in enumerate(job_dicts):
+            if i < upper_limit:
+                url = dict["jobUrl"]
+                html = render_page(url=url)
+                content = filter_content(html=html)
+                print("-------------------------------------------------------------\n")
+                print(f"url: {url}")
+                print(content)
+                print("--------------------------------------------------------------\n")
+    
         
-        # parse main content of job ad page.abs
-        contents = [filter_content(html) for html in htmls]
-        show_list_items(items=contents)
+
         
 
     return
