@@ -1,8 +1,8 @@
 import asyncio
 from crawl4ai import AsyncWebCrawler
-from langchain.prompts import PromptTemplate
-from langchain.llms import Ollama
-from langchain.chains import LLMChain
+from langchain_classic.chains import LLMChain
+from langchain_core.prompts import PromptTemplate
+from langchain_ollama import OllamaLLM
 
 class JobExtractor:
     def __init__(self, model_name: str):
@@ -17,7 +17,7 @@ class JobExtractor:
                 {webpage_text}
                 """
             )
-        self.llm = Ollama(model=model_name)
+        self.llm = OllamaLLM(model=model_name)
         self.chain = LLMChain(llm=self.llm, prompt=self.prompt_template)
 
     async def fetch_page(self, url: str) -> str:

@@ -35,9 +35,9 @@ def main():
 
         for url in job_ad_urls:
             print(f"Processing job ad page: {url}")
-
+            job_extracted_data = extractor.extract_job_info(url=url)
            
-            pprint(job_extracted_data)
+            print(job_extracted_data)
            
     return
 
